@@ -39,7 +39,9 @@ module StateMachine
     # Progress to next state
     # @param [Hash] ctx optional context
     def next(**ctx)
-      raise TransitionError, "No transition available" unless (t = @transitions[@current])
+      raise TransitionError, "No transition available" unless (t = @transitions.values.collect { |v|
+                                                                 v if v.from.eql?(@current)
+                                                               }.first)
 
       execute_transition t, **ctx
     end

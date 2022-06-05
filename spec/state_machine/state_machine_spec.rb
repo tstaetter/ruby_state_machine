@@ -43,7 +43,10 @@ RSpec.describe StateMachine::StateMachine do
     end
 
     it "can execute 'next'" do
+      machine.transition :first_step, :first, :second
+      machine.next
 
+      expect(machine.current).to eq :second
     end
   end
 end
